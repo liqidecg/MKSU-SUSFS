@@ -95,10 +95,8 @@ jobs:
         if: ${{ inputs.kernelsu_branch == 'Dev' }}
         run: |
           # Determine the branch based on user input
-          if [[ "${{ inputs.kernelsu_variant }}" == "Official" || "${{ inputs.kernelsu_variant }}" == "MKSU" ]]; then
+          if [[ "${{ inputs.kernelsu_variant }}" == "MKSU" ]]; then
             BRANCH="main"
-          elif [[ "${{ inputs.kernelsu_variant }}" == "Next" ]]; then
-            BRANCH="next"
           elif [[ "${{ inputs.kernelsu_branch }}" == "Other" && -n "${{ inputs.kernelsu_branch_other }}" ]]; then
             BRANCH="${{ inputs.kernelsu_branch_other }}"
           else
@@ -111,14 +109,6 @@ jobs:
 
       - name: Get commit hash or tag and generate URL for KernelSU-${{ inputs.kernelsu_variant }}
         run: |
-          if [ "${{ inputs.kernelsu_variant }}" == "Official" ]; then
-            echo "This is the Official variant"
-            REPO_URL="https://github.com/tiann/KernelSU.git"
-            REPO_URL2="tiann/KernelSU"
-          elif [ "${{ inputs.kernelsu_variant }}" == "Next" ]; then
-            echo "This is the Next variant"
-            REPO_URL="https://github.com/rifsxd/KernelSU-Next.git"
-            REPO_URL2="rifsxd/KernelSU-Next"
           elif [ "${{ inputs.kernelsu_variant }}" == "MKSU" ]; then
             echo "This is the MKSU variant"
             REPO_URL="https://github.com/5ec1cff/KernelSU.git"
